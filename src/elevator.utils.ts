@@ -1,22 +1,18 @@
-export function offset(elem: HTMLElement) {
-    let docElem: HTMLElement, rect: ClientRect, doc: Document;
-
-    if (!elem) {
-        return;
-    }
-
+export function offset(element: HTMLElement) {
     // Support: IE <=11 only
     // Running getBoundingClientRect on a
     // disconnected node in IE throws an error
-    if (!elem.getClientRects().length) {
+    if (!element || !element.getClientRects().length) {
         return { top: 0, left: 0 };
     }
 
-    rect = elem.getBoundingClientRect();
+    let docElem: HTMLElement, rect: ClientRect, doc: Document;
+
+    rect = element.getBoundingClientRect();
 
     // Make sure element is not hidden (display: none)
     if (rect.width || rect.height) {
-        doc = elem.ownerDocument;
+        doc = element.ownerDocument;
         docElem = doc.documentElement;
 
         return {

@@ -54,6 +54,10 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   reloadYPositions(force = false) {
+    if (!this.elevator) {
+      return;
+    }
+
     let elevatorMarginTop = parseFloat(this.elevatorStyle.marginTop);
     let elevatorMarginBottom = parseFloat(this.elevatorStyle.marginBottom);
 
@@ -115,11 +119,11 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   get elevatorStyle() {
-    return this.elevator.currentStyle || window.getComputedStyle(this.elevator);
+    return this.elevator ? this.elevator.currentStyle || getComputedStyle(this.elevator) : null;
   }
 
   get host() {
-    return this.elevator.parentNode;
+    return this.elevator ? this.elevator.parentNode : null;
   }
 
   setPosition(position = null, top = null, bottom = null) {
