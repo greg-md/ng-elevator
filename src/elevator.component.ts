@@ -6,7 +6,7 @@ import {
 import { offset } from './elevator.utils';
 
 @Component({
-  selector: 'app-elevator',
+  selector: 'gg-elevator',
   template: '<ng-content></ng-content>',
   styles: [':host { display: block; }'],
 })
