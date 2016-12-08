@@ -17,11 +17,11 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
 
   @Input() marginBottom = 0;
 
-  @HostBinding('style.position') cssPosition;
+  @HostBinding('style.position') cssPosition: string;
 
-  @HostBinding('style.top.px') cssTop;
+  @HostBinding('style.top.px') cssTop: number;
 
-  @HostBinding('style.bottom.px') cssBottom;
+  @HostBinding('style.bottom.px') cssBottom: number;
 
   constructor(private elementRef: ElementRef, private renderer: Renderer) { }
 
@@ -126,7 +126,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
     return this.elevator ? this.elevator.parentNode : null;
   }
 
-  setPosition(position = null, top = null, bottom = null) {
+  setPosition(position: string = null, top: number = null, bottom: number = null) {
     this.cssPosition = position;
     this.cssTop = top;
     this.cssBottom = bottom;

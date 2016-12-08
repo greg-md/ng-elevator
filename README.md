@@ -17,7 +17,7 @@ npm install @greg-md/ng-elevator --save
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-// 1. Import elevator module.
+// 1. Import elevator module;
 import { ElevatorModule } from '@greg-md/ng-elevator';
 
 import { AppComponent } from './app.component';

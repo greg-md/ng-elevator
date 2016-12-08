@@ -1,2 +1,2 @@
-export * from './src/elevator.module';
 export * from './src/elevator.component';
+export * from './src/elevator.module';
