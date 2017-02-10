@@ -5,13 +5,23 @@
 
 Make a container to elevate on screen while scrolling with Angular2.
 
+# Table of contents:
+
+* [Installation](#installation)
+* [How It Works](#how-it-works)
+* [Component Attributes](#component-attributes)
+* [License](#license)
+* [Huuuge Quote](#huuuge-quote)
+
 # Installation
 
 ```bash
 npm install @greg-md/ng-elevator --save
 ```
 
-# Setting up in a module
+# How It Works
+
+### Setting up in a module
 
 ```typescript
 import { BrowserModule } from '@angular/platform-browser';
@@ -36,7 +46,7 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-# Using in templates
+### Using in templates
 
 ```typescript
 import { Component } from '@angular/core';
@@ -60,7 +70,7 @@ import { Component } from '@angular/core';
 export class AppComponent { }
 ```
 
-# Component attributes
+# Component Attributes
 
 ## marginTop
 
@@ -92,3 +102,7 @@ _Example:_
 # License
 
 MIT © [Grigorii Duca](http://greg.md)
+
+# Huuuge Quote
+
+![I fear not the man who has practiced 10,000 programming languages once, but I fear the man who has practiced one programming language 10,000 times. #horrorsquad](http://greg.md/huuuge-quote-fb.jpg)
