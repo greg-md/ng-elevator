@@ -5,7 +5,7 @@
 
 Make a container to elevate on screen while scrolling with Angular2.
 
-# Table of contents:
+# Table of Contents:
 
 * [Installation](#installation)
 * [How It Works](#how-it-works)
