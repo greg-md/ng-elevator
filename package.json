@@ -1,7 +1,7 @@
 {
   "name": "@greg-md/ng-elevator",
   "version": "1.0.0",
-  "description": "Elevator for Angular2",
+  "description": "Make a container to elevate on the screen while scrolling with Angular.",
   "repository": {
     "type": "git",
     "url": "https://github.com/greg-md/ng-elevator"
@@ -14,16 +14,13 @@
     "greg-md",
     "greg-js",
     "ng-elevator",
-    "ng2-elevator",
     "elevator",
     "scroll",
     "scrolling",
     "ng",
-    "ng2",
     "js",
     "ts",
     "angular",
-    "angular2",
     "javascript",
     "typescript"
   ],
