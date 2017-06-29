@@ -1,9 +1,9 @@
-# Elevator for Angular2
+# Ng Elevator
 
 [![npm version](https://badge.fury.io/js/%40greg-md%2Fng-elevator.svg)](https://badge.fury.io/js/%40greg-md%2Fng-elevator)
 [![Build Status](https://travis-ci.org/greg-md/ng-elevator.svg?branch=master)](https://travis-ci.org/greg-md/ng-elevator)
 
-Make a container to elevate on screen while scrolling with Angular2.
+Make a container to elevate on the screen while scrolling with Angular.
 
 # Table of Contents:
 
