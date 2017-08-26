@@ -47,8 +47,12 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
     });
   }
 
-  @HostListener('window:scroll') @HostListener('window:resize') reloadTrigger() {
+  @HostListener('window:scroll') windowScroll() {
     this.reloadPositions();
+  }
+
+  @HostListener('window:resize') windowResize() {
+    this.reloadPositions(true);
   }
 
   reloadPositions(force = false) {
