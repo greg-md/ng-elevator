@@ -1,0 +1,40 @@
+{
+  "name": "@greg-md/ng-elevator",
+  "version": "1.0.2",
+  "description": "Make a container to elevate on the screen while scrolling with Angular.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greg-md/ng-elevator"
+  },
+  "author": {
+    "name": "Grigorii Duca",
+    "email": "contact@greg.md"
+  },
+  "keywords": [
+    "greg-md",
+    "greg-js",
+    "ng-elevator",
+    "elevator",
+    "scroll",
+    "scrolling",
+    "ng",
+    "js",
+    "ts",
+    "angular",
+    "javascript",
+    "typescript"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greg-md/ng-elevator/issues"
+  },
+  "main": "ng-elevator.umd.js",
+  "module": "ng-elevator.js",
+  "jsnext:main": "ng-elevator.js",
+  "typings": "ng-elevator.d.ts",
+  "peerDependencies": {
+    "@angular/core": "^4.0.0",
+    "rxjs": "^5.1.0",
+    "zone.js": "^0.8.4"
+  }
+}

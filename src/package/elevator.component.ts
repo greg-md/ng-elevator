@@ -1,6 +1,6 @@
 import {
   Component, Input, HostBinding, HostListener, ElementRef,
-  OnInit, OnChanges, AfterViewInit, Renderer
+  OnInit, OnChanges, AfterViewInit, Renderer2
 } from '@angular/core';
 
 import { offset } from './elevator.utils';
@@ -23,7 +23,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
 
   @HostBinding('style.bottom.px') cssBottom: number;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer) { }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
     this.marginTop = parseInt('' + this.marginTop, 10);
