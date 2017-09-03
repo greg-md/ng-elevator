@@ -21,8 +21,8 @@
     "annotateForClosureCompiler": true,
     "strictMetadataEmit": true,
     "skipTemplateCodegen": true,
-    "flatModuleOutFile": "ng-boot.js",
-    "flatModuleId": "@greg-md/ng-boot"
+    "flatModuleOutFile": "ng-elevator.js",
+    "flatModuleId": "@greg-md/ng-elevator"
   },
   "files": [
     "./index.ts"

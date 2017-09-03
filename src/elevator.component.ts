@@ -16,7 +16,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   private _marginTop: number = 0;
 
   @Input('margin-top') set marginTop(position: number) {
-    this._marginTop = parseInt('' + this.marginTop, 10);
+    this._marginTop = parseInt('' + position, 10);
   };
 
   get marginTop(): number {
@@ -26,7 +26,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   private _marginBottom: number = 0;
 
   @Input('margin-bottom') set marginBottom(position: number) {
-    this._marginBottom = parseInt('' + this.marginTop, 10);
+    this._marginBottom = parseInt('' + position, 10);
   };
 
   get marginBottom(): number {
