@@ -1,6 +1,6 @@
 {
   "name": "@greg-md/ng-elevator",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Make a container to elevate on the screen while scrolling with Angular.",
   "scripts": {
     "build": "gulp build",
@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/greg-md/ng-elevator/issues"
   },
-  "main": "./src/index.ts",
+  "main": "./index.ts",
   "devDependencies": {
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",

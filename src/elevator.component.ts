@@ -6,16 +6,32 @@ import {
 import { offset } from './elevator.utils';
 
 @Component({
-  selector: 'gg-elevator',
+  selector: 'elevator',
   template: '<ng-content></ng-content>',
   styles: [':host { display: block; }'],
 })
 export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   lastPosition = 0;
 
-  @Input() marginTop = 0;
+  private _marginTop: number = 0;
 
-  @Input() marginBottom = 0;
+  @Input('margin-top') set marginTop(position: number) {
+    this._marginTop = parseInt('' + this.marginTop, 10);
+  };
+
+  get marginTop(): number {
+    return this._marginTop;
+  }
+
+  private _marginBottom: number = 0;
+
+  @Input('margin-bottom') set marginBottom(position: number) {
+    this._marginBottom = parseInt('' + this.marginTop, 10);
+  };
+
+  get marginBottom(): number {
+    return this._marginBottom;
+  }
 
   @HostBinding('style.position') cssPosition: string;
 
@@ -26,15 +42,19 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
-    this.marginTop = parseInt('' + this.marginTop, 10);
+    this.initImagesLoad();
+  }
 
-    this.marginBottom = parseInt('' + this.marginBottom, 10);
+  initImagesLoad() {
+    if (this.elevator) {
+      Array.from(this.elevator.getElementsByTagName('img')).forEach(img => {
+        let loadUnload = this.renderer.listen(img, 'load', () => {
+          this.reloadPositions(true);
 
-    Array.from(this.elevator.getElementsByTagName('img')).forEach(img => {
-      this.renderer.listen(img, 'load', () => {
-        this.reloadPositions(true);
+          loadUnload();
+        });
       });
-    });
+    }
   }
 
   ngOnChanges() {
