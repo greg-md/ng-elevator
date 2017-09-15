@@ -1,22 +1,24 @@
 import {
   Component, Input, HostBinding, HostListener, ElementRef,
-  OnInit, OnChanges, AfterViewInit, Renderer2
+  OnInit, OnChanges, AfterViewInit, Renderer2, ChangeDetectionStrategy, ViewChildren, QueryList, Inject, PLATFORM_ID
 } from '@angular/core';
 
 import { offset } from './elevator.utils';
+import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'elevator',
   template: '<ng-content></ng-content>',
   styles: [':host { display: block; }'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
-  lastPosition = 0;
+export class ElevatorComponent implements AfterViewInit {
+  lastPosition: number = 0;
 
   private _marginTop: number = 0;
 
   @Input('margin-top') set marginTop(position: number) {
-    this._marginTop = parseInt('' + position, 10);
+    this._marginTop = Math.round(position);
   };
 
   get marginTop(): number {
@@ -26,7 +28,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
   private _marginBottom: number = 0;
 
   @Input('margin-bottom') set marginBottom(position: number) {
-    this._marginBottom = parseInt('' + position, 10);
+    this._marginBottom = Math.round(position);
   };
 
   get marginBottom(): number {
@@ -39,32 +41,18 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
 
   @HostBinding('style.bottom.px') cssBottom: number;
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) { }
+  @ViewChildren('img') images: QueryList<any>;
 
-  ngOnInit() {
-    this.initImagesLoad();
-  }
-
-  initImagesLoad() {
-    if (this.elevator) {
-      Array.from(this.elevator.getElementsByTagName('img')).forEach(img => {
-        let loadUnload = this.renderer.listen(img, 'load', () => {
-          this.reloadPositions(true);
-
-          loadUnload();
-        });
-      });
-    }
-  }
-
-  ngOnChanges() {
-    this.reloadPositions(true);
-  }
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    @Inject(PLATFORM_ID) private platformId: string
+  ) { }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      this.reloadPositions(true);
-    });
+    this.initImagesLoad();
+
+    setTimeout(() => this.reloadPositions(true));
   }
 
   @HostListener('window:scroll') windowScroll() {
@@ -75,21 +63,33 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
     this.reloadPositions(true);
   }
 
+  initImagesLoad() {
+    this.images.forEach(img => {
+      let loadUnload = this.renderer.listen(img, 'load', () => {
+        this.reloadPositions(true);
+
+        loadUnload();
+      });
+    });
+  }
+
   reloadPositions(force = false) {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     this.reloadYPositions(force);
   }
 
   reloadYPositions(force = false) {
-    if (!this.elevator) {
-      return;
-    }
+    let styles = getComputedStyle(this.elementRef.nativeElement);
 
-    let elevatorMarginTop = parseFloat(this.elevatorStyle.marginTop);
-    let elevatorMarginBottom = parseFloat(this.elevatorStyle.marginBottom);
+    let elevatorMarginTop = parseFloat(styles.marginTop);
+    let elevatorMarginBottom = parseFloat(styles.marginBottom);
 
-    let elevatorHeight = this.elevator.offsetHeight + elevatorMarginTop + elevatorMarginBottom;
+    let elevatorHeight = this.elementRef.nativeElement.offsetHeight + elevatorMarginTop + elevatorMarginBottom;
 
-    if (elevatorHeight >= this.host.clientHeight) {
+    if (elevatorHeight >= this.elementRef.nativeElement.parentNode.clientHeight) {
       this.setPosition();
 
       return;
@@ -101,13 +101,13 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
 
     let elevatorDiff = (window.innerHeight - (elevatorHeight + this.marginTop + this.marginBottom));
 
-    let hostPosition = this.host.getBoundingClientRect();
+    let hostPosition = this.elementRef.nativeElement.parentNode.getBoundingClientRect();
 
     let hostTop = (hostPosition.top * -1) + this.marginTop;
 
     let hostBottom = (hostPosition.bottom - window.innerHeight) + this.marginBottom;
 
-    let elevatorPosition = this.elevator.getBoundingClientRect();
+    let elevatorPosition = this.elementRef.nativeElement.getBoundingClientRect();
 
     let elevatorTop = (elevatorPosition.top * -1) + elevatorMarginTop + this.marginTop;
 
@@ -123,7 +123,7 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
           this.setPosition('fixed', this.marginTop);
         }
       } else {
-        this.setPosition('absolute', offset(this.elevator).top - offset(this.host).top - elevatorMarginTop);
+        this.setPosition('absolute', offset(this.elementRef.nativeElement).top - offset(this.elementRef.nativeElement.parentNode).top - elevatorMarginTop);
 
         if (isScrollDown || force) {
           if (hostBottom <= 0) {
@@ -138,18 +138,6 @@ export class ElevatorComponent implements OnInit, OnChanges, AfterViewInit {
         }
       }
     }
-  }
-
-  get elevator() {
-    return this.elementRef.nativeElement;
-  }
-
-  get elevatorStyle() {
-    return this.elevator ? this.elevator.currentStyle || getComputedStyle(this.elevator) : null;
-  }
-
-  get host() {
-    return this.elevator ? this.elevator.parentNode : null;
   }
 
   setPosition(position: string = null, top: number = null, bottom: number = null) {
