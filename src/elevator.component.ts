@@ -73,15 +73,15 @@ export class ElevatorComponent implements AfterViewInit {
     });
   }
 
-  reloadPositions(force = false) {
+  reloadPositions(keepPositions = false) {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    this.reloadYPositions(force);
+    this.reloadYPositions(keepPositions);
   }
 
-  reloadYPositions(force = false) {
+  reloadYPositions(keepPositions = false) {
     let styles = getComputedStyle(this.elementRef.nativeElement);
 
     let elevatorMarginTop = parseFloat(styles.marginTop);
@@ -125,7 +125,7 @@ export class ElevatorComponent implements AfterViewInit {
       } else {
         this.setPosition('absolute', offset(this.elementRef.nativeElement).top - offset(this.elementRef.nativeElement.parentNode).top - elevatorMarginTop);
 
-        if (isScrollDown || force) {
+        if (isScrollDown || keepPositions) {
           if (hostBottom <= 0) {
             this.setPosition('absolute', null, 0);
           } else if (elevatorBottom <= 0) {
@@ -138,6 +138,14 @@ export class ElevatorComponent implements AfterViewInit {
         }
       }
     }
+  }
+
+  prepareAbsolutePositions() {
+    let styles = getComputedStyle(this.elementRef.nativeElement);
+
+    let elevatorMarginTop = parseFloat(styles.marginTop);
+
+    this.setPosition('absolute', offset(this.elementRef.nativeElement).top - offset(this.elementRef.nativeElement.parentNode).top - elevatorMarginTop);
   }
 
   setPosition(position: string = null, top: number = null, bottom: number = null) {
