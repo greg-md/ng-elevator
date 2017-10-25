@@ -1,10 +1,20 @@
 import {
-  Component, Input, HostBinding, HostListener, ElementRef,
-  OnInit, OnChanges, AfterViewInit, Renderer2, ChangeDetectionStrategy, ViewChildren, QueryList, Inject, PLATFORM_ID
+  Component,
+  Input,
+  HostBinding,
+  HostListener,
+  ElementRef,
+  AfterViewInit,
+  Renderer2,
+  ChangeDetectionStrategy,
+  ViewChildren,
+  QueryList,
+  Inject,
+  PLATFORM_ID
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 import { offset } from './elevator.utils';
-import {isPlatformBrowser} from "@angular/common";
 
 @Component({
   selector: 'elevator',
@@ -17,7 +27,8 @@ export class ElevatorComponent implements AfterViewInit {
 
   private _marginTop: number = 0;
 
-  @Input('margin-top') set marginTop(position: number) {
+  @Input('margin-top')
+  set marginTop(position: number) {
     this._marginTop = Math.round(position);
   };
 
@@ -27,7 +38,8 @@ export class ElevatorComponent implements AfterViewInit {
 
   private _marginBottom: number = 0;
 
-  @Input('margin-bottom') set marginBottom(position: number) {
+  @Input('margin-bottom')
+  set marginBottom(position: number) {
     this._marginBottom = Math.round(position);
   };
 
@@ -47,7 +59,8 @@ export class ElevatorComponent implements AfterViewInit {
     private elementRef: ElementRef,
     private renderer: Renderer2,
     @Inject(PLATFORM_ID) private platformId: string
-  ) { }
+  ) {
+  }
 
   ngAfterViewInit() {
     this.initImagesLoad();
@@ -55,11 +68,13 @@ export class ElevatorComponent implements AfterViewInit {
     setTimeout(() => this.reloadPositions(true));
   }
 
-  @HostListener('window:scroll') windowScroll() {
+  @HostListener('window:scroll')
+  windowScroll() {
     this.reloadPositions();
   }
 
-  @HostListener('window:resize') windowResize() {
+  @HostListener('window:resize')
+  windowResize() {
     this.reloadPositions(true);
   }
 

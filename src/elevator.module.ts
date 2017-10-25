@@ -8,4 +8,5 @@ import { ElevatorComponent } from './elevator.component';
   declarations: [ElevatorComponent],
   exports: [ElevatorComponent]
 })
-export class ElevatorModule { }
+export class ElevatorModule {
+}

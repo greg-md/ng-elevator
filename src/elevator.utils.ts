@@ -3,7 +3,7 @@ export function offset(element: HTMLElement) {
   // Running getBoundingClientRect on a
   // disconnected node in IE throws an error
   if (!element || !element.getClientRects().length) {
-    return { top: 0, left: 0 };
+    return {top: 0, left: 0};
   }
 
   let docElem: HTMLElement, rect: ClientRect, doc: Document;
