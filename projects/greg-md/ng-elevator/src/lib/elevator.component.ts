@@ -115,7 +115,6 @@ export class ElevatorComponent implements AfterViewInit {
       - parseFloat(styles.marginLeft)
       - parseFloat(styles.marginRight);
 
-    console.log(styles, elevatorWidth, this.elementRef.nativeElement.parentNode.clientWidth);
     if (elevatorDiff >= 0 ? hostTop <= 0 : elevatorBottom > 0 && (!this.cssPosition || hostTop <= 0)) {
       this.setPosition();
     } else {
