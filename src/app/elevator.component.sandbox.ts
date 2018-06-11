@@ -9,10 +9,6 @@ export default sandboxOf(ElevatorComponent)
         height: 2000px;
         border: 1px solid red;
     }
-
-    greg-elevator {
-      width: 200px;
-    }
   `],
   template: `
     <section class="container">

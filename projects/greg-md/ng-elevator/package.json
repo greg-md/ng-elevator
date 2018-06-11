@@ -1,6 +1,6 @@
 {
   "name": "@greg-md/ng-elevator",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Make a container to elevate on the screen while scrolling with Angular.",
   "repository": {
     "type": "git",

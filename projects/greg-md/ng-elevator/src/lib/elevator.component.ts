@@ -34,6 +34,8 @@ export class ElevatorComponent implements AfterViewInit {
 
   @HostBinding('style.bottom.px') cssBottom: number;
 
+  @HostBinding('style.width.px') cssWidth: number;
+
   @ViewChildren('img') images: QueryList<any>;
 
   constructor(
@@ -109,30 +111,37 @@ export class ElevatorComponent implements AfterViewInit {
 
     const elevatorBottom = (elevatorPosition.bottom - window.innerHeight) + elevatorMarginBottom + this.marginBottom;
 
+    const elevatorWidth = parseFloat(this.elementRef.nativeElement.parentNode.clientWidth)
+      - parseFloat(styles.marginLeft)
+      - parseFloat(styles.marginRight);
+
+    console.log(styles, elevatorWidth, this.elementRef.nativeElement.parentNode.clientWidth);
     if (elevatorDiff >= 0 ? hostTop <= 0 : elevatorBottom > 0 && (!this.cssPosition || hostTop <= 0)) {
       this.setPosition();
     } else {
       if (elevatorDiff >= 0) {
         if (hostBottom + elevatorDiff <= 0) {
-          this.setPosition('absolute', null, 0);
+          this.setPosition('absolute', null, 0, elevatorWidth);
         } else {
-          this.setPosition('fixed', this.marginTop);
+          this.setPosition('fixed', this.marginTop, null, elevatorWidth);
         }
       } else {
         this.setPosition(
           'absolute',
-          offset(this.elementRef.nativeElement).top - offset(this.elementRef.nativeElement.parentNode).top - elevatorMarginTop
+          offset(this.elementRef.nativeElement).top - offset(this.elementRef.nativeElement.parentNode).top - elevatorMarginTop,
+          null,
+          elevatorWidth
         );
 
         if (isScrollDown || keepPositions) {
           if (hostBottom <= 0) {
-            this.setPosition('absolute', null, 0);
+            this.setPosition('absolute', null, 0, elevatorWidth);
           } else if (elevatorBottom <= 0) {
             this.setPosition('fixed', null, this.marginBottom);
           }
         } else {
           if (elevatorTop <= 0) {
-            this.setPosition('fixed', this.marginTop, null);
+            this.setPosition('fixed', this.marginTop, null, elevatorWidth);
           }
         }
       }
@@ -150,9 +159,10 @@ export class ElevatorComponent implements AfterViewInit {
     );
   }
 
-  setPosition(position: string = null, top: number = null, bottom: number = null) {
+  setPosition(position: string = null, top: number = null, bottom: number = null, width: number = null) {
     this.cssPosition = position;
     this.cssTop = top;
     this.cssBottom = bottom;
+    this.cssWidth = width;
   }
 }
